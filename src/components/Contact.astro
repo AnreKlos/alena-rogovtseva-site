@@ -1,0 +1,156 @@
+---
+---
+
+<section class="contact-section" id="contact">
+  <div class="container">
+    <h2 class="section-title">Запись на услугу</h2>
+    <p class="section-subtitle">Оставьте заявку, и мы свяжемся с вами для подтверждения</p>
+
+    <div class="contact-grid">
+      <div class="contact-form">
+        <form>
+          <div class="form-field">
+            <label for="name">Имя</label>
+            <input type="text" id="name" name="name" placeholder="Ваше имя" />
+          </div>
+          <div class="form-field">
+            <label for="phone">Телефон</label>
+            <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" />
+          </div>
+          <div class="form-field">
+            <label for="service">Услуга</label>
+            <select id="service" name="service">
+              <option value="">Выберите услугу</option>
+              <option value="lashes">Ресницы</option>
+              <option value="nails">Ногтевой сервис</option>
+              <option value="brows">Брови и макияж</option>
+              <option value="training">Обучение</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="message">Комментарий</label>
+            <textarea id="message" name="message" rows="4" placeholder="Пожелания к записи..."></textarea>
+          </div>
+          <button type="submit" class="contact-submit">Отправить заявку</button>
+        </form>
+      </div>
+
+      <div class="contact-info">
+        <div class="contact-item">
+          <span class="contact-label">Адрес</span>
+          <span class="contact-value">г. Москва, ул. Примерная, д. 1</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">Телефон</span>
+          <span class="contact-value">+7 (999) 123-45-67</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">Режим работы</span>
+          <span class="contact-value">Пн–Сб: 10:00–20:00</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">Instagram</span>
+          <span class="contact-value">@rogovtseva_beauty</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-section {
+    padding: 80px 0;
+    background: #fff;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .form-field {
+    margin-bottom: 20px;
+  }
+
+  .form-field label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #4a3f38;
+    margin-bottom: 6px;
+  }
+
+  .form-field input,
+  .form-field select,
+  .form-field textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #e0d5cc;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    color: #2d2d2d;
+    background: #faf8f5;
+    box-sizing: border-box;
+  }
+
+  .form-field input::placeholder,
+  .form-field textarea::placeholder {
+    color: #b0a098;
+  }
+
+  .contact-submit {
+    display: inline-block;
+    padding: 14px 36px;
+    background: #b08968;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .contact-submit:hover {
+    background: #9a7555;
+  }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .contact-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .contact-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #9a8478;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .contact-value {
+    font-size: 1rem;
+    color: #2d2d2d;
+  }
+
+  @media (max-width: 768px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .contact-section {
+      padding: 50px 0;
+    }
+  }
+</style>

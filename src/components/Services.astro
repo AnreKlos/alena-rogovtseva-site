@@ -1,0 +1,426 @@
+---
+import { services } from '../data/services';
+import ServiceCard from './ServiceCard.astro';
+
+const categories = [
+  { slug: 'lashes', label: 'Ресницы' },
+  { slug: 'nails', label: 'Ногтевой сервис' },
+  { slug: 'brows', label: 'Брови и макияж' },
+  { slug: 'training', label: 'Обучение' },
+];
+
+const servicesByCategory = categories.map(cat => ({
+  ...cat,
+  items: services.filter(s => s.category === cat.slug),
+}));
+
+const servicesBySlug = {};
+services.forEach(s => { servicesBySlug[s.slug] = s; });
+---
+
+<section class="services-section">
+  <div class="container">
+    <h2 class="section-title">Услуги</h2>
+    <p class="section-subtitle">Наращивание, брови и уход за ногтями</p>
+
+    <div class="services-tabs" id="servicesTabs">
+      {categories.map(cat => (
+        <button
+          class={'tab-btn' + (cat.slug === 'lashes' ? ' active' : '')}
+          data-tab={cat.slug}
+        >
+          {cat.label}
+        </button>
+      ))}
+    </div>
+
+    {servicesByCategory.map(group => {
+      if (group.slug === 'lashes') {
+        return (
+          <div class="tab-panel active" data-panel={group.slug}>
+            <div class="services-category-layout">
+              <div class="services-category-header">
+                <h3 class="services-category-title">Ресницы</h3>
+                <p class="services-category-intro">Наращивание ресниц — это не только про длину и объём, а про то, как вы смотрите на себя в зеркало по утрам. Большинство девушек после первой процедуры говорят не «ого, какие длинные», а «я себе нравлюсь прямо сейчас — без макияжа, без фильтров».</p>
+              </div>
+
+              <div class="services-grid">
+                {group.items.map(service => (
+                  <ServiceCard service={service} />
+                ))}
+              </div>
+
+              <div class="services-safety-card">
+                <h4 class="services-safety-title">Безопасное снятие ресниц</h4>
+                <p class="services-safety-text">Профессиональное снятие — это аккуратный процесс без рывков и спешки. Сначала состав мягко растворяет клей, затем материал снимается бережно, а в конце ресницы обязательно очищаются.</p>
+                <div class="services-video-placeholder">
+                  <div class="services-video-poster">
+                    <span class="services-video-label">Видео-превью</span>
+                    <span class="services-video-caption">На видео — полный процесс снятия: шаг за шагом, спокойно и аккуратно.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      if (group.slug === 'nails') {
+        return (
+          <div class="tab-panel" data-panel={group.slug} style="display: none">
+            <div class="services-category-layout">
+              <div class="services-category-header">
+                <h3 class="services-category-title">Ногти</h3>
+                <p class="services-category-intro">Ухоженные руки и ноги — это не роскошь и не история на один день. Красивый результат начинается с аккуратной работы, правильной формы и внимания к деталям.</p>
+                <p class="services-category-copy">Если вам важны удобная запись и спокойная атмосфера — вам к нам.</p>
+              </div>
+
+              <div class="services-grid">
+                {group.items.map(service => (
+                  <ServiceCard service={service} />
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      return (
+        <div class="tab-panel" data-panel={group.slug} style="display: none">
+          <div class="services-grid">
+            {group.items.map(service => (
+              <ServiceCard service={service} />
+            ))}
+          </div>
+        </div>
+      );
+    })}
+  </div>
+
+  <div class="services-modal-overlay" id="servicesModalOverlay">
+    <div class="services-modal" id="servicesModal">
+      <button class="services-modal-close" id="servicesModalClose">&times;</button>
+      <div class="services-modal-image" id="servicesModalImage">
+        <img src="" alt="" id="servicesModalImg" />
+      </div>
+      <div class="services-modal-content">
+        <h3 id="servicesModalTitle"></h3>
+        <p id="servicesModalDescription"></p>
+        <span class="service-price" id="servicesModalPrice"></span>
+        <a href="#contact" class="btn-small" id="servicesModalCta">Записаться</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script client:only>
+  var overlay = document.getElementById('servicesModalOverlay');
+  var img = document.getElementById('servicesModalImg');
+  var title = document.getElementById('servicesModalTitle');
+  var desc = document.getElementById('servicesModalDescription');
+  var price = document.getElementById('servicesModalPrice');
+  var cta = document.getElementById('servicesModalCta');
+  var servicesBySlug = {};
+
+  // Build lookup map from data attributes on cards
+  document.querySelectorAll('[data-slug]').forEach(function(card) {
+    servicesBySlug[card.dataset.slug] = {
+      name: card.dataset.name,
+      price: card.dataset.price,
+      description: card.dataset.description,
+      image: card.dataset.image
+    };
+  });
+
+  // Open modal on card click
+  document.querySelectorAll('[data-service-card]').forEach(function(card) {
+    card.addEventListener('click', function() {
+      var slug = card.dataset.slug;
+      var service = servicesBySlug[slug];
+      if (!service) return;
+
+      img.src = service.image;
+      img.alt = service.name;
+      title.textContent = service.name;
+      desc.textContent = service.description;
+      price.textContent = service.price;
+      overlay.style.display = 'flex';
+    });
+  });
+
+  // Close on backdrop click
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) {
+      overlay.style.display = 'none';
+    }
+  });
+
+  // Close on X button
+  document.getElementById('servicesModalClose').addEventListener('click', function() {
+    overlay.style.display = 'none';
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.style.display === 'flex') {
+      overlay.style.display = 'none';
+    }
+  });
+
+  // Tab switching
+  document.getElementById('servicesTabs').addEventListener('click', function(e) {
+    var btn = e.target.closest('.tab-btn');
+    if (!btn) return;
+    showTab(btn.dataset.tab);
+  });
+
+  // Init: apply active tab on load
+  (function() {
+    var activeBtn = document.querySelector('#servicesTabs .tab-btn.active');
+    if (activeBtn) {
+      showTab(activeBtn.dataset.tab);
+    }
+  })();
+
+  function showTab(tab) {
+    var tabs = document.getElementById('servicesTabs');
+    tabs.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+    tabs.querySelector('[data-tab="' + tab + '"]').classList.add('active');
+
+    var section = document.querySelector('.services-section');
+    section.querySelectorAll('.tab-panel').forEach(function(p) {
+      p.style.display = p.dataset.panel === tab ? '' : 'none';
+    });
+  }
+</script>
+
+<style>
+  .services-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .services-modal {
+    background: #fff;
+    max-width: 560px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+  }
+
+  .services-modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: rgba(255, 255, 255, 0.9);
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
+  .services-modal-image {
+    width: 100%;
+    height: 320px;
+    overflow: hidden;
+    background: #f8f6f3;
+  }
+
+  .services-modal-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .services-modal-content {
+    padding: 28px;
+  }
+
+  .services-modal-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #2d2d2d;
+    margin-bottom: 12px;
+  }
+
+  .services-modal-content p {
+    font-size: 0.95rem;
+    color: #7a6e62;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .services-modal-content .service-price {
+    display: block;
+    margin-bottom: 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #a68a64;
+  }
+
+  .services-modal-content .btn-small {
+    font-size: 0.85rem;
+    padding: 12px 28px;
+  }
+
+  @media (max-width: 480px) {
+    .services-modal-overlay {
+      padding: 12px;
+    }
+    .services-modal {
+      max-height: 95vh;
+    }
+    .services-modal-image {
+      height: 220px;
+    }
+    .services-modal-content {
+      padding: 20px;
+    }
+  }
+/* category/lashes UX additions */
+
+.services-category-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.services-category-header {
+  display: block;
+}
+
+.services-category-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  line-height: 1.35;
+  color: #2d2d2d;
+  margin: 0 0 10px;
+}
+
+.services-category-intro {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #5c524a;
+  margin: 0;
+}
+
+.services-category-copy {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #7a6e62;
+  margin: 10px 0 0;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+.services-safety-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px;
+  background: #f7f4f0;
+  border: 1px solid #ece5de;
+}
+
+.services-safety-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  color: #2d2d2d;
+  margin: 0;
+}
+
+.services-safety-text {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: #5c524a;
+  margin: 0;
+}
+
+.services-video-placeholder {
+  width: 100%;
+  margin-top: 4px;
+}
+
+.services-video-poster {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #ece5de;
+  border: 1px dashed #d6cbc1;
+}
+
+.services-video-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8a7e70;
+}
+
+.services-video-caption {
+  font-size: 0.85rem;
+  text-align: center;
+  color: #7a6e62;
+  padding: 0 14px;
+}
+
+@media (min-width: 560px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .services-video-poster {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (min-width: 960px) {
+  .services-category-layout {
+    gap: 22px;
+  }
+
+  .services-category-title {
+    font-size: 1.45rem;
+  }
+
+  .services-category-intro {
+    font-size: 1.05rem;
+  }
+
+  .services-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  .services-safety-card {
+    padding: 22px 24px;
+  }
+
+  .services-safety-title {
+    font-size: 1.15rem;
+  }
+}
+
+</style>

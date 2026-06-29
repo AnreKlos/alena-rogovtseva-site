@@ -1,0 +1,130 @@
+---
+interface Props {
+  service: {
+    slug: string;
+    name: string;
+    price: string;
+    description: string;
+    category: string;
+    image: string;
+  };
+}
+
+const { service } = Astro.props;
+---
+
+<article class="service-card" data-service-card data-slug={service.slug} data-name={service.name} data-price={service.price} data-description={service.description} data-image={service.image}>
+  <div class="service-card-image">
+    <img
+      src={service.image}
+      alt={service.name}
+      loading="lazy"
+      onerror="this.style.display='none'"
+    />
+  </div>
+  <div class="service-card-info">
+    <h3>{service.name}</h3>
+    <p>{service.description}</p>
+  </div>
+  <div class="service-card-footer">
+    <span class="service-price">{service.price}</span>
+    <span class="btn-small">Записаться</span>
+  </div>
+</article>
+
+<style>
+  .service-card {
+    background: #fff;
+    padding: 18px 18px 24px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(166, 138, 100, 0.03) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .service-card:hover {
+    transform: translateY(-6px) rotate(0.5deg);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+  }
+
+  .service-card-image {
+    height: 240px;
+    overflow: hidden;
+    background: #f8f6f3;
+    margin-bottom: 16px;
+  }
+
+  .service-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.6s ease;
+  }
+
+  .service-card:hover .service-card-image img {
+    transform: scale(1.03);
+  }
+
+  .service-card-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #2d2d2d;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .service-card-info p {
+    font-size: 0.85rem;
+    color: #7a6e62;
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  .service-card-footer {
+    padding: 16px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    margin-top: 16px;
+  }
+
+  .service-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #a68a64;
+    letter-spacing: -0.02em;
+  }
+
+  .btn-small {
+    padding: 8px 20px;
+    background: transparent;
+    color: #2d2d2d;
+    border: 1.5px solid #2d2d2d;
+    border-radius: 0;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-small:hover {
+    background: #2d2d2d;
+    color: #fff;
+  }
+</style>
