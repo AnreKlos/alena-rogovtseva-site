@@ -85,6 +85,66 @@ services.forEach(s => { servicesBySlug[s.slug] = s; });
         );
       }
 
+      if (group.slug === 'brows') {
+        return (
+          <div class="tab-panel" data-panel={group.slug} style="display: none">
+            <div class="services-category-layout">
+              <div class="services-category-header">
+                <h3 class="services-category-title">Брови</h3>
+                <p class="services-category-intro">Долговременная укладка, коррекция и окрашивание — чтобы брови выглядели ухоженно и живо.</p>
+                <p class="services-category-copy">Я люблю непростые брови: асимметрия, упрямая форма, сложный рост. Аккуратная укладка и мягкий цвет помогают сделать лицо гармоничнее, не перегружая образ.</p>
+              </div>
+
+              <div class="services-grid">
+                {group.items.map(service => (
+                  <ServiceCard service={service} />
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      if (group.slug === 'makeup') {
+        return (
+          <div class="tab-panel" data-panel={group.slug} style="display: none">
+            <div class="services-category-layout">
+              <div class="services-category-header">
+                <h3 class="services-category-title">Макияж</h3>
+                <p class="services-category-intro">Дневной, вечерний и свадебный макияж для любого повода.</p>
+                <p class="services-category-copy">Подчеркнём вашу естественную красоту без ощущения маски на лице. Используем проверенную косметику, чтобы макияж держался долго, а вы чувствовали себя комфортно и уверенно.</p>
+              </div>
+
+              <div class="services-grid">
+                {group.items.map(service => (
+                  <ServiceCard service={service} />
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      if (group.slug === 'training') {
+        return (
+          <div class="tab-panel" data-panel={group.slug} style="display: none">
+            <div class="services-category-layout">
+              <div class="services-category-header">
+                <h3 class="services-category-title">Обучение</h3>
+                <p class="services-category-intro">Обучение и повышение квалификации для мастеров, которые хотят работать аккуратно и уверенно.</p>
+                <p class="services-category-copy">На курсах разбираем ошибки, даю не только теорию, но и реальную практику. Учу так, чтобы знания можно было сразу перенести в работу — без «воды» и скрытых секретов.</p>
+              </div>
+
+              <div class="services-grid">
+                {group.items.map(service => (
+                  <ServiceCard service={service} />
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+      }
+
       return (
         <div class="tab-panel" data-panel={group.slug} style="display: none">
           <div class="services-grid">
