@@ -1,12 +1,12 @@
 # Архитектура проекта
 
-> Обновлено: 27.06.2026
+> Обновлено: 02.07.2026
 
 ---
 
 ## Обзор
 
-Astro 5 + Tailwind v4 + Alpine.js. Статическая генерация (output: static). Данные по услугам хранятся в TypeScript-модуле, не в CMS.
+Astro 7 + Tailwind v4 + Alpine.js. Статическая генерация (output: static). Данные по услугам хранятся в TypeScript-модуле, не в CMS.
 
 ---
 
@@ -56,14 +56,23 @@ interface Service {
 | Компонент | Файл | Статус |
 |-----------|------|--------|
 | Layout | `src/layouts/Layout.astro` | ✅ Работает |
+| Hero | `src/components/Hero.astro` | ✅ Работает |
 | Services | `src/components/Services.astro` | ✅ Работает |
 | ServiceCard | `src/components/ServiceCard.astro` | ✅ Работает |
+| Benefits | `src/components/Benefits.astro` | ✅ Работает |
+| About | `src/components/About.astro` | ✅ Работает |
+| Gallery | `src/components/Gallery.astro` | ✅ Работает (табы фильтрации, 26 фото) |
+| BeforeAfter | `src/components/BeforeAfter.astro` | ✅ Работает (carousel, lightbox, drag/swipe) |
+| Reviews | `src/components/Reviews.astro` | ✅ Работает |
+| Contact | `src/components/Contact.astro` | ✅ Работает (форма + Яндекс.Карта) |
 
 ---
 
 ## Стили
 
-Глобальные стили живут в `src/styles/global.css`:
+Глобальные стили живут в `src/styles/global.css` и `src/styles/theme.css`:
+
+**global.css:**
 - `@import "tailwindcss"`
 - Базовые стили body, h1-h4
 - `.container`, `.section-title`, `.section-subtitle`
@@ -71,15 +80,18 @@ interface Service {
 - `.tab-panel`, `@keyframes fadeIn`
 - `.services-grid`
 
-Стили карточек — внутри `ServiceCard.astro` (scoped `<style>`):
-- `.service-card`, `.service-card-image`, `.service-card-info`, `.service-card-footer`, `.service-price`, `.btn-small`
+**theme.css:**
+- Theme-токены: `--color-bg`, `--color-surface`, `--color-text-main`, `--color-accent`, и др.
+- 3 темы: `dark-elegance`, `clean-lux`, `soft-nude`
+- Переключение через `data-theme` на `<html>`
+- Применён во всех компонентах (Hero, Services, Gallery, BeforeAfter, etc.)
 
 ---
 
 ## Сборка и запуск
 
 ```bash
-npm run dev      # localhost:4321
+npm run dev      # localhost:4321 (--host)
 npm run build    # output: dist/
 npm run preview  # просмотр сборки
 ```

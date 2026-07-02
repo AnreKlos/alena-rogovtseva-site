@@ -1,6 +1,6 @@
 # Текущий статус проекта
 
-> Обновлено: 01.07.2026
+> Обновлено: 02.07.2026
 > GitHub: https://github.com/AnreKlos/alena-rogovtseva-site
 > Статус: базовая версия запушена, активная разработка, этап theme-архитектуры и UI/UX-полировки
 
@@ -15,7 +15,7 @@
 | Hero | ✅ Работает (новые тексты: H1, подзаголовок, бейдж 5.0, CTA) |
 | Services | ✅ Работает (4 таба, 14 карточек по категориям, modal) |
 | Раздел «Галерея» | ✅ Работает (табы + фильтрация, 26 фото, «Показать ещё») | `src/components/Gallery.astro` |
-| Блок «До / После» | ✅ Добавлен (horizontal snap carousel, 7 работ, image-driven карточки, center accent, autoplay step-based, lightbox без подписей) | `src/components/BeforeAfter.astro` |
+| Блок «До / После» | ✅ Работает (horizontal snap carousel, 7 работ, center accent, autoplay step-based, lightbox с drag/swipe, симметричная анимация) | `src/components/BeforeAfter.astro` |
 | Reviews | ✅ Работает (5 карточек реальных отзывов) | `src/components/Reviews.astro` |
 | Contact | ✅ Работает (форма + контакты + Яндекс.Карта через JS API с Placemark по координатам). | `src/components/Contact.astro` |
 | Данные (14 услуг) | ✅ Загружаются из `src/data/services.ts` |
@@ -65,8 +65,8 @@ Hero → Benefits → Services → About → Gallery → BeforeAfter → Reviews
 
 ## Следующий шаг
 
-- Финальная визуальная проверка согласованности темы по всем секциям
-- При необходимости до-миграция оставшихся theme-ролей
+- Дизайн-полировка всего сайта (внешняя карусель, карточки, стрелки)
+- Визуальная проверка согласованности темы по всем секциям
 
 ## Примечания
 

@@ -1,7 +1,7 @@
 # Контекст проекта: Роговцева Лендинг V2
 
-> Обновлено: 01.07.2026
-> Статус: активная разработка v2, этап theme-архитектуры и UI/UX-полировки
+> Обновлено: 02.07.2026
+> Статус: активная разработка v2, этап UI/UX-полировки
 
 ---
 
@@ -45,7 +45,7 @@ rogovtseva_v2_astro/
 │   │   ├── ServiceCard.astro    ← Карточка-превью одной услуги
 │   │   ├── About.astro          ← Секция «Обо мне» (статистика + CTA)
 │   │   ├── Gallery.astro        ← Секция «Работы» (табы фильтрации, 26 фото, «Показать ещё»)
-│   │   ├── BeforeAfter.astro    ← Блок «До / После» (9 работ, сетка 2/1 колонки)
+│   │   ├── BeforeAfter.astro    ← Блок «До / После» (horizontal snap carousel, center accent, lightbox с drag-swipe)
 │   │   ├── Reviews.astro        ← Секция «Отзывы» (5 карточек)
 │   │   └── Contact.astro        ← Секция «Запись»: форма + контакты + Яндекс.Карта (JS API, Placemark)
 ```
@@ -123,8 +123,7 @@ rogovtseva_v2_astro/
 | Блок «Почему к нам возвращаются» | ✅ Работает | `src/components/Benefits.astro` |
 | Секция «Обо мне» | ✅ Работает | `src/components/About.astro` |
 | Раздел «Галерея» | ✅ Работает (табы + фильтрация, 26 фото, «Показать ещё») | `src/components/Gallery.astro` |
-| Блок «До / После» | ✅ Добавлен (horizontal snap carousel, 9 работ, image-driven карточки, compact premium wall, center accent, autoplay step-based, lightbox без подписей) | `src/components/BeforeAfter.astro` |
-| **Правки BeforeAfter от 01.07.2026** | В процессе: infinite-loop карусель; карточки-квадраты; средняя карточка должна быть крупнее боковых; стрелки карусели должны стоять рядом с каруселью, а не по краям экрана; в lightbox кнопки prev/next/close должны быть рядом с фотографией, а не по углам экрана; в lightbox должна работать drag-навигация по фото (зажал мышкой и тянешь влево/вправо — переключаются карточки) | |
+|| Блок «До / После» | ✅ Работает (horizontal snap carousel, 7 работ, center accent, autoplay step-based, lightbox с drag/swipe prev/next, симметричная анимация) | `src/components/BeforeAfter.astro` |
 | Раздел «Отзывы» | ✅ Работает | `src/components/Reviews.astro` |
 | Раздел «Запись» | ✅ Работает (форма + контакты + Яндекс.Карта через JS API, координаты 53.215127, 34.421717, без всплывающей плашки) | `src/components/Contact.astro` |
 
@@ -214,11 +213,12 @@ rogovtseva_v2_astro/
 - Подключён сразу после `Gallery`
 - Данные: реальные фото из `public/assets/img/gallery/before-after/`
 - Отображает 7 работ (ресницы, макияж, уход за кожей)
-- Концепция: horizontal snap carousel + image-driven карточки + center accent + autoplay step-based + lightbox без подписей
-- Lightbox: prev/next/close, keyboard nav, без drag/swipe внутри лайтбокса
+- Концепция: horizontal snap carousel + image-driven карточки + center accent + autoplay step-based + lightbox с drag/swipe
+- Lightbox: prev/next/close, keyboard nav, drag-swipe (синхронный), симметричная анимация
 - Карточки: `height: auto`, `object-fit: contain`, без фиксированного aspect-ratio
 - Infinite loop реализован через wrap-jump (Autoplay + стрелки)
 - Стрелки карусели позиционированы внутри `.carousel`
+- Фиксы от 02.07.2026: `flex-shrink: 0` на `.ba-lightbox-track`, `width: 100%` на `.ba-lightbox-img-wrap`, синхронный `centerTrack()`, удалён `justify-content: center` из `.ba-lightbox-img-wrap`
 
 ---
 
@@ -246,8 +246,8 @@ Hero → Benefits → Services → About → Gallery → BeforeAfter → Reviews
 - Сборка завершена
 - Theme-архитектура внедрена и считается базовой
 - Контактная карта исправлена
-- Блок «До / После» переведён на horizontal snap carousel с image-driven карточками
-- Текущие доработки BeforeAfter: infinite loop, крупная средняя карточка, стрелки у карусели, lightbox с кнопками у фото и drag-swipe внутри лайтбокса
+- Блок «До / После»: функционально финализирован (lightbox fix, симметричный swipe, flex-shrink:0, синхронный centerTrack)
+- Ожидает дизайн-полировки всего сайта
 - Использовать CodeGraph как primary tool для навигации/аудита кодовой базы, а не как ad-hoc чтение файлов
 - Проект находится в этапе UI/UX-полировки и дизайна
 
