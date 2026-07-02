@@ -14,7 +14,7 @@
 | Build | ✅ `npm run build` проходит успешно |
 | Hero | ✅ Работает (новые тексты: H1, подзаголовок, бейдж 5.0, CTA) |
 | Services | ✅ Работает (4 таба, 14 карточек по категориям, modal) |
-| Раздел «Галерея» | ✅ Работает (табы + фильтрация, 26 фото, «Показать ещё») | `src/components/Gallery.astro` |
+| Раздел «Галерея» | ✅ Работает (Luxury Contact Sheet: 3-column uniform grid, 28 фото, lightbox) | `src/components/Gallery.astro` |
 | Блок «До / После» | ✅ Работает (horizontal snap carousel, 7 работ, center accent, autoplay step-based, lightbox с drag/swipe, симметричная анимация) | `src/components/BeforeAfter.astro` |
 | Reviews | ✅ Работает (5 карточек реальных отзывов) | `src/components/Reviews.astro` |
 | Contact | ✅ Работает (форма + контакты + Яндекс.Карта через JS API с Placemark по координатам). | `src/components/Contact.astro` |

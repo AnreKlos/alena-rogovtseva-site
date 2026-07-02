@@ -122,7 +122,7 @@ rogovtseva_v2_astro/
 | Раздел «Услуги» | ✅ Работает | `src/components/Services.astro` |
 | Блок «Почему к нам возвращаются» | ✅ Работает | `src/components/Benefits.astro` |
 | Секция «Обо мне» | ✅ Работает | `src/components/About.astro` |
-| Раздел «Галерея» | ✅ Работает (Filmstrip Gallery: featured image + thumbnail rail, фильтры, 28 фото) | `src/components/Gallery.astro` |
+| Раздел «Галерея» | ✅ Работает (Luxury Contact Sheet: 3-column uniform grid, 28 фото, lightbox) | `src/components/Gallery.astro` |
 ||| Блок «До / После» | ✅ Работает (horizontal snap carousel, 7 работ, center accent, autoplay step-based, lightbox с симметричным swipe) | `src/components/BeforeAfter.astro` |
 | Раздел «Отзывы» | ✅ Работает | `src/components/Reviews.astro` |
 | Раздел «Запись» | ✅ Работает (форма + контакты + Яндекс.Карта через JS API, координаты 53.215127, 34.421717, без всплывающей плашки) | `src/components/Contact.astro` |
@@ -247,7 +247,7 @@ Hero → Benefits → Services → About → Gallery → BeforeAfter → Reviews
 - Theme-архитектура внедрена
 - Контактная карта исправлена
 - Блок «До / После»: функционально финализирован (lightbox fix, симметричный swipe, flex-shrink:0, синхронный centerTrack)
-- Галерея «Мои работы»: переведена на Filmstrip Gallery (featured image + thumbnail rail, 28 фото)
+- Галерея «Мои работы»: переведена на Luxury Contact Sheet (3-column uniform grid, 28 фото, ITEMS_PER_LOAD=6)
 - Проект готов к дизайн-полировке всего сайта
 
 ---
@@ -269,7 +269,7 @@ npm run build               # сборка проекта
 - Тексты для сайта создаются владельцем проекта и ассистентом вручную; Hermes не сочиняет тексты сам, а только вносит утверждённые формулировки
 - Benefits: блок «Почему к нам возвращаются» (3 карточки: Комфортно, Безопасно и аккуратно, По времени — как договорились)
 - About: секция «Обо мне» (статистика + CTA)
-- Gallery: заголовок «Мои работы», табы фильтрации (Все, Ресницы, Брови, Маникюр, Педикюр), Filmstrip Gallery: featured large image + горизонтальный thumbnail rail, 28 фото, кнопка «Показать ещё»
+- Gallery: заголовок «Мои работы», табы фильтрации (Все, Ресницы, Брови, Маникюр, Педикюр), Luxury Contact Sheet: 3-column uniform grid, 28 фото (8 ресницы, 6 брови, 7 маникюр, 7 педикюр), кнопка «Показать ещё» (по 6 фото), lightbox с клавиатурной навигацией
 - Reviews: 5 карточек реальных отзывов
 - Contact: форма + контакты + Яндекс.Карта через JS API (ymaps.Map + Placemark), координаты 53.215127, 34.421717, без всплывающей плашки.
 - `npm run build` завершается успешно

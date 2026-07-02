@@ -28,7 +28,7 @@ npm run preview    # предпросмотр собранного
 | Hero | `src/components/Hero.astro` |
 | Услуги | `src/components/Services.astro` |
 | Обо мне | `src/components/About.astro` |
-| Галерея | `src/components/Gallery.astro` (Filmstrip) |
+| Галерея | `src/components/Gallery.astro` (Luxury Contact Sheet) |
 | До/После | `src/components/BeforeAfter.astro` |
 | Отзывы | `src/components/Reviews.astro` |
 | Запись | `src/components/Contact.astro` |
