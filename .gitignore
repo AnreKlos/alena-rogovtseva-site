@@ -31,3 +31,7 @@ screenshot_check.png
 # Agent/local config files
 AGENTS.md
 CLAUDE.md
+
+# Logs
+*.log
+temp/

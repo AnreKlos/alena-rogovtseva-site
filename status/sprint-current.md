@@ -1,8 +1,8 @@
 # Текущий статус проекта
 
-> Обновлено: 29.06.2026
+> Обновлено: 01.07.2026
 > GitHub: https://github.com/AnreKlos/alena-rogovtseva-site
-> Статус: базовая версия запушена, активная разработка
+> Статус: базовая версия запушена, активная разработка, этап theme-архитектуры и UI/UX-полировки
 
 ---
 
@@ -14,10 +14,13 @@
 | Build | ✅ `npm run build` проходит успешно |
 | Hero | ✅ Работает (новые тексты: H1, подзаголовок, бейдж 5.0, CTA) |
 | Services | ✅ Работает (4 таба, 14 карточек по категориям, modal) |
-| Gallery | ✅ Подключена (placeholder-контент, 6 фото) |
-| Reviews | ✅ Работает (5 карточек реальных отзывов) |
-| Contact | ✅ Работает (форма + контакты: Брянск, Московский пр., 49А) |
+| Раздел «Галерея» | ✅ Работает (табы + фильтрация, 26 фото, «Показать ещё») | `src/components/Gallery.astro` |
+| Блок «До / После» | ✅ Добавлен (horizontal snap carousel, 7 работ, image-driven карточки, center accent, autoplay step-based, lightbox без подписей) | `src/components/BeforeAfter.astro` |
+| Reviews | ✅ Работает (5 карточек реальных отзывов) | `src/components/Reviews.astro` |
+| Contact | ✅ Работает (форма + контакты + Яндекс.Карта через JS API с Placemark по координатам). | `src/components/Contact.astro` |
 | Данные (14 услуг) | ✅ Загружаются из `src/data/services.ts` |
+| Benefits | ✅ Работает (блок «Почему к нам возвращаются») |
+| About | ✅ Работает (секция «Обо мне» + статистика + CTA) |
 
 ## Услуги
 
@@ -29,7 +32,19 @@
 
 ## Структура страницы
 
-Hero → Services → Benefits → About → Gallery → Reviews → Contact
+Hero → Benefits → Services → About → Gallery → BeforeAfter → Reviews → Contact
+
+---
+
+## Theme-архитектура
+
+- Source of truth: `src/styles/theme.css`
+- Переключение через `data-theme` на `<html>`
+- Активные палитры: `dark-elegance`, `clean-lux`, `soft-nude`
+- Мигрированы: Hero, Services, ServiceCard, About, Gallery, BeforeAfter, Reviews, Contact, Footer, overlay/lightbox
+- Запрещено возвращать raw hex/rgba для theme-ролей в компонентах
+
+---
 
 ## Раздел «Услуги» — текущее наполнение
 
@@ -50,8 +65,8 @@ Hero → Services → Benefits → About → Gallery → Reviews → Contact
 
 ## Следующий шаг
 
-- Заменить placeholder'ы в Gallery на реальные фото-услуг
-- При необходимости: добавить секции `Benefits.astro` и `About.astro` в код
+- Финальная визуальная проверка согласованности темы по всем секциям
+- При необходимости до-миграция оставшихся theme-ролей
 
 ## Примечания
 

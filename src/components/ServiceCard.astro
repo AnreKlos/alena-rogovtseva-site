@@ -34,9 +34,9 @@ const { service } = Astro.props;
 
 <style>
   .service-card {
-    background: #fff;
+    background: var(--color-surface);
     padding: 18px 18px 24px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-soft);
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     cursor: pointer;
     position: relative;
@@ -48,19 +48,19 @@ const { service } = Astro.props;
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(166, 138, 100, 0.03) 0%, transparent 50%);
+    background: linear-gradient(135deg, var(--color-accent-soft) 0%, transparent 50%);
     pointer-events: none;
   }
 
   .service-card:hover {
     transform: translateY(-6px) rotate(0.5deg);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+    box-shadow: var(--shadow-strong);
   }
 
   .service-card-image {
     height: 240px;
     overflow: hidden;
-    background: #f8f6f3;
+    background: var(--color-surface-2);
     margin-bottom: 16px;
   }
 
@@ -79,14 +79,14 @@ const { service } = Astro.props;
     font-family: 'Playfair Display', serif;
     font-size: 1.25rem;
     font-weight: 500;
-    color: #2d2d2d;
+    color: var(--color-text-main);
     margin-bottom: 6px;
     letter-spacing: -0.01em;
   }
 
   .service-card-info p {
     font-size: 0.85rem;
-    color: #7a6e62;
+    color: var(--color-text-muted);
     line-height: 1.5;
     font-weight: 300;
   }
@@ -96,7 +96,7 @@ const { service } = Astro.props;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    border-top: 1px solid var(--color-border-subtle);
     margin-top: 16px;
   }
 
@@ -104,15 +104,15 @@ const { service } = Astro.props;
     font-family: 'Playfair Display', serif;
     font-size: 1.3rem;
     font-weight: 600;
-    color: #a68a64;
+    color: var(--color-accent);
     letter-spacing: -0.02em;
   }
 
   .btn-small {
     padding: 8px 20px;
     background: transparent;
-    color: #2d2d2d;
-    border: 1.5px solid #2d2d2d;
+    color: var(--color-text-main);
+    border: 1.5px solid var(--color-text-main);
     border-radius: 0;
     font-size: 0.75rem;
     font-weight: 500;
@@ -124,7 +124,7 @@ const { service } = Astro.props;
   }
 
   .btn-small:hover {
-    background: #2d2d2d;
-    color: #fff;
+    background: var(--color-text-main);
+    color: var(--color-on-accent);
   }
 </style>

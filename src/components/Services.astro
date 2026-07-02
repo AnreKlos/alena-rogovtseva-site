@@ -259,7 +259,7 @@ services.forEach(s => { servicesBySlug[s.slug] = s; });
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: var(--color-overlay-backdrop);
     z-index: 1000;
     justify-content: center;
     align-items: center;
@@ -267,7 +267,7 @@ services.forEach(s => { servicesBySlug[s.slug] = s; });
   }
 
   .services-modal {
-    background: #fff;
+    background: var(--color-surface);
     max-width: 560px;
     width: 100%;
     max-height: 90vh;
@@ -282,7 +282,7 @@ services.forEach(s => { servicesBySlug[s.slug] = s; });
     width: 36px;
     height: 36px;
     border: none;
-    background: rgba(255, 255, 255, 0.9);
+    background: var(--color-border-subtle);
     font-size: 20px;
     cursor: pointer;
     z-index: 10;
@@ -296,7 +296,7 @@ services.forEach(s => { servicesBySlug[s.slug] = s; });
     width: 100%;
     height: 320px;
     overflow: hidden;
-    background: #f8f6f3;
+    background: var(--color-surface-2);
   }
 
   .services-modal-image img {
@@ -313,13 +313,13 @@ services.forEach(s => { servicesBySlug[s.slug] = s; });
     font-family: 'Playfair Display', serif;
     font-size: 1.5rem;
     font-weight: 500;
-    color: #2d2d2d;
+    color: var(--color-text-main);
     margin-bottom: 12px;
   }
 
   .services-modal-content p {
     font-size: 0.95rem;
-    color: #7a6e62;
+    color: var(--color-text-muted);
     line-height: 1.6;
     margin-bottom: 20px;
   }
@@ -330,9 +330,9 @@ services.forEach(s => { servicesBySlug[s.slug] = s; });
     font-family: 'Playfair Display', serif;
     font-size: 1.5rem;
     font-weight: 600;
-    color: #a68a64;
+    color: var(--color-accent);
+    letter-spacing: -0.02em;
   }
-
   .services-modal-content .btn-small {
     font-size: 0.85rem;
     padding: 12px 28px;
@@ -368,21 +368,21 @@ services.forEach(s => { servicesBySlug[s.slug] = s; });
   font-family: 'Playfair Display', serif;
   font-size: 1.25rem;
   line-height: 1.35;
-  color: #2d2d2d;
+  color: var(--color-text-main);
   margin: 0 0 10px;
 }
 
 .services-category-intro {
   font-size: 0.95rem;
   line-height: 1.65;
-  color: #5c524a;
+  color: var(--color-text-muted);
   margin: 0;
 }
 
 .services-category-copy {
   font-size: 0.95rem;
   line-height: 1.65;
-  color: #7a6e62;
+  color: var(--color-text-muted);
   margin: 10px 0 0;
 }
 
@@ -397,21 +397,21 @@ services.forEach(s => { servicesBySlug[s.slug] = s; });
   flex-direction: column;
   gap: 10px;
   padding: 18px;
-  background: #f7f4f0;
-  border: 1px solid #ece5de;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border-subtle);
 }
 
 .services-safety-title {
   font-family: 'Playfair Display', serif;
   font-size: 1.05rem;
-  color: #2d2d2d;
+  color: var(--color-text-main);
   margin: 0;
 }
 
 .services-safety-text {
   font-size: 0.92rem;
   line-height: 1.6;
-  color: #5c524a;
+  color: var(--color-text-muted);
   margin: 0;
 }
 
@@ -428,21 +428,21 @@ services.forEach(s => { servicesBySlug[s.slug] = s; });
   gap: 8px;
   width: 100%;
   aspect-ratio: 16 / 9;
-  background: #ece5de;
-  border: 1px dashed #d6cbc1;
+  background: var(--color-surface-2);
+  border: 1px dashed var(--color-border-subtle);
 }
 
 .services-video-label {
   font-size: 0.75rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #8a7e70;
+  color: var(--color-text-muted);
 }
 
 .services-video-caption {
   font-size: 0.85rem;
   text-align: center;
-  color: #7a6e62;
+  color: var(--color-text-muted);
   padding: 0 14px;
 }
 

@@ -1,6 +1,5 @@
 ---
 ---
-
 <section class="contact-section" id="contact">
   <div class="container">
     <h2 class="section-title">Запись на услугу</h2>
@@ -38,29 +37,48 @@
       <div class="contact-info">
         <div class="contact-item">
           <span class="contact-label">Адрес</span>
-          <span class="contact-value">г. Москва, ул. Примерная, д. 1</span>
+          <span class="contact-value">Брянск, Московский проспект, 49А</span>
+          <span class="contact-hint">Справа от ТЦ «Европа», вход слева между офисными зданиями</span>
         </div>
         <div class="contact-item">
           <span class="contact-label">Телефон</span>
-          <span class="contact-value">+7 (999) 123-45-67</span>
+          <a class="contact-value contact-phone" href="tel:+796****3119">+7 (961) 104-31-19</a>
         </div>
         <div class="contact-item">
           <span class="contact-label">Режим работы</span>
-          <span class="contact-value">Пн–Сб: 10:00–20:00</span>
+          <span class="contact-value">Ежедневно с 8:30 до 21:00</span>
         </div>
         <div class="contact-item">
-          <span class="contact-label">Instagram</span>
-          <span class="contact-value">@rogovtseva_beauty</span>
+          <span class="contact-label">Соцсети</span>
+          <a class="contact-value contact-social" href="#" target="_blank" rel="noopener">ВКонтакте</a>
         </div>
       </div>
     </div>
+
+    <div class="contact-map">
+      <div id="yandex-map" style="width: 100%; height: 400px;"></div>
+    </div>
+
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" is:inline></script>
+    <script is:inline>
+      ymaps.ready(init);
+      function init() {
+        var myMap = new ymaps.Map("yandex-map", {
+          center: [53.215127, 34.421717],
+          zoom: 16,
+          controls: ['zoomControl']
+        });
+        var myPlacemark = new ymaps.Placemark([53.215127, 34.421717], {}, {});
+        myMap.geoObjects.add(myPlacemark);
+      }
+    </script>
   </div>
 </section>
 
 <style>
   .contact-section {
     padding: 80px 0;
-    background: #fff;
+    background: var(--color-surface);
   }
 
   .contact-grid {
@@ -68,6 +86,7 @@
     grid-template-columns: 1fr 1fr;
     gap: 48px;
     align-items: start;
+    margin-bottom: 48px;
   }
 
   .form-field {
@@ -78,7 +97,7 @@
     display: block;
     font-size: 0.85rem;
     font-weight: 600;
-    color: #4a3f38;
+    color: var(--color-text-main);
     margin-bottom: 6px;
   }
 
@@ -87,25 +106,25 @@
   .form-field textarea {
     width: 100%;
     padding: 12px 16px;
-    border: 1px solid #e0d5cc;
+    border: 1px solid var(--color-border-subtle);
     border-radius: 8px;
     font-family: 'Inter', sans-serif;
     font-size: 0.95rem;
-    color: #2d2d2d;
-    background: #faf8f5;
+    color: var(--color-text-main);
+    background: var(--color-surface);
     box-sizing: border-box;
   }
 
   .form-field input::placeholder,
   .form-field textarea::placeholder {
-    color: #b0a098;
+    color: var(--color-text-muted);
   }
 
   .contact-submit {
     display: inline-block;
     padding: 14px 36px;
-    background: #b08968;
-    color: #fff;
+    background: var(--color-accent);
+    color: var(--color-on-accent);
     font-size: 1rem;
     font-weight: 600;
     border: none;
@@ -115,7 +134,7 @@
   }
 
   .contact-submit:hover {
-    background: #9a7555;
+    background: var(--color-accent-hover);
   }
 
   .contact-info {
@@ -133,14 +152,52 @@
   .contact-label {
     font-size: 0.8rem;
     font-weight: 600;
-    color: #9a8478;
+    color: var(--color-accent);
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
 
   .contact-value {
     font-size: 1rem;
-    color: #2d2d2d;
+    color: var(--color-text-main);
+  }
+
+  .contact-hint {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-top: 2px;
+  }
+
+  .contact-phone {
+    color: var(--color-accent);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .contact-phone:hover {
+    text-decoration: underline;
+  }
+
+  .contact-social {
+    color: var(--color-accent);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .contact-social:hover {
+    text-decoration: underline;
+  }
+
+  .contact-map {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .contact-map > div {
+    display: block;
+    width: 100%;
+    height: 400px;
   }
 
   @media (max-width: 768px) {
@@ -151,6 +208,14 @@
 
     .contact-section {
       padding: 50px 0;
+    }
+
+    .contact-map {
+      border-radius: 12px;
+    }
+
+    .contact-map > div {
+      height: 300px;
     }
   }
 </style>

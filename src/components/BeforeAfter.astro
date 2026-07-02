@@ -1,0 +1,702 @@
+---
+const images = [
+  { src: '/assets/img/gallery/before-after/1без макияжа и с макияжем3.webp', title: 'Макияж' },
+  { src: '/assets/img/gallery/before-after/3без макияжа и с макияжем2.webp', title: 'Макияж' },
+  { src: '/assets/img/gallery/before-after/4без макияжа и с макияжем.webp', title: 'Макияж' },
+  { src: '/assets/img/gallery/before-after/5без макияжа и с макияжем4.webp', title: 'Макияж' },
+  { src: '/assets/img/gallery/before-after/6без макияжа и с макияжем5.webp', title: 'Макияж' },
+  { src: '/assets/img/gallery/before-after/7до после кожа лица.jpg', title: 'Уход за кожей лица' },
+  { src: '/assets/img/gallery/before-after/2XXXL.webp', title: 'Ресницы XXXL' },
+];
+
+const slides = [...images, ...images];
+---
+
+<section class="ba-section" id="before-after">
+  <div class="ba-header">
+    <span class="ba-eyebrow">Портфолио</span>
+    <h2 class="ba-title">До / После</h2>
+  </div>
+
+  <div class="carousel" data-carousel>
+    <button class="carousel-btn carousel-btn--prev" data-prev aria-label="Предыдущий">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+
+    <div class="carousel-viewport">
+      <div class="carousel-track" data-track>
+        {slides.map((img, idx) => (
+          <article class="case-card" data-index={idx % images.length} data-src={img.src} data-title={img.title}>
+            <div class="case-card__shell">
+              <div class="case-media">
+                <img src={img.src} alt={img.title} loading="lazy" draggable="false" />
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+
+    <button class="carousel-btn carousel-btn--next" data-next aria-label="Следующий">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+</section>
+
+<div class="ba-lightbox" data-lightbox hidden>
+  <div class="ba-lightbox-img-wrap">
+    <button class="ba-lightbox-close" data-close aria-label="Закрыть">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <button class="ba-lightbox-prev" data-prev aria-label="Предыдущий">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="ba-lightbox-next" data-next aria-label="Следующий">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <div class="ba-lightbox-track">
+      <div class="ba-lightbox-slide" data-role="prev"><img alt="" /></div>
+      <div class="ba-lightbox-slide" data-role="current"><img alt="" /></div>
+      <div class="ba-lightbox-slide" data-role="next"><img alt="" /></div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .ba-section {
+    padding: 80px 0;
+    background: var(--color-bg);
+    color: var(--color-text-main);
+  }
+
+  .ba-section {
+    --card-width: clamp(280px, 30vw, 360px);
+    --card-gap: 18px;
+    --cards-visible: 3;
+  }
+
+  .ba-header {
+    margin-bottom: 44px;
+    text-align: center;
+  }
+
+  .ba-eyebrow {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: 10px;
+  }
+
+  .ba-title {
+    font-size: clamp(1.6rem, 3vw, 2rem);
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  .carousel {
+    position: relative;
+    display: block;
+    width: calc(var(--cards-visible) * var(--card-width) + (var(--cards-visible) - 1) * var(--card-gap));
+    margin: 0 auto;
+    overflow: visible;
+  }
+
+  .carousel-viewport {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    width: calc(var(--cards-visible) * var(--card-width) + (var(--cards-visible) - 1) * var(--card-gap));
+    margin: 0 auto;
+    border-radius: 24px;
+    position: relative;
+    padding: 24px 0;
+  }
+
+  .carousel-viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .carousel-track {
+    display: flex;
+    gap: var(--card-gap);
+    padding: 8px 8px 12px;
+    margin: -8px -8px -12px;
+  }
+
+  .case-card {
+    position: relative;
+    scroll-snap-align: center;
+    flex: 0 0 var(--card-width);
+    overflow: visible;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: pan-y;
+  }
+
+  .case-card.is-center {
+    /* акцент живёт на shell */
+  }
+
+  .case-card__shell {
+    position: relative;
+    border-radius: 28px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-subtle);
+    box-shadow: var(--shadow-soft);
+    transform: scale(1);
+    transform-origin: center center;
+    transition: transform 320ms ease, box-shadow 320ms ease, opacity 320ms ease;
+    will-change: transform;
+    opacity: 0.85;
+  }
+
+  .case-card.is-center .case-card__shell {
+    transform: scale(1.06);
+    z-index: 3;
+    opacity: 1;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.35);
+  }
+
+  .case-media {
+    width: 100%;
+    background: var(--color-surface-2);
+    line-height: 0;
+    aspect-ratio: 3/4;
+    border-radius: inherit;
+    overflow: hidden;
+  }
+
+  .case-media img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    background: transparent;
+  }
+
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+    border: 1px solid var(--color-border-subtle);
+    background: var(--color-surface);
+    color: var(--color-text-main);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    box-shadow: var(--shadow-soft);
+    opacity: 0.92;
+    transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease;
+  }
+
+  .carousel-btn:hover {
+    opacity: 1;
+    background: var(--color-surface);
+  }
+
+  .carousel-btn--prev { left: 0; transform: translate(-100%, -50%); }
+  .carousel-btn--next { right: 0; transform: translate(100%, -50%); }
+
+  @media (max-width: 1024px) {
+    .ba-section {
+      --cards-visible: 2;
+      --card-width: clamp(260px, 48vw, 340px);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .ba-section {
+      --cards-visible: 1;
+      --card-width: 78vw;
+    }
+    .carousel-viewport {
+      border-radius: 18px;
+    }
+    .carousel-track {
+      gap: 12px;
+      padding: 6px 3px 8px;
+      margin: -6px -3px -8px;
+    }
+    .case-card {
+      border-radius: 18px;
+    }
+    .carousel-btn { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .carousel-viewport { scroll-behavior: auto; }
+    .case-card, .carousel-btn { transition: none; }
+    .case-card.is-center { transform: none; }
+  }
+
+  /* Lightbox */
+  .ba-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: var(--color-overlay-backdrop, rgba(0,0,0,0.72));
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .ba-lightbox[hidden] {
+    display: none;
+  }
+
+  .ba-lightbox-img-wrap {
+    position: relative;
+    width: 100%;
+    max-width: min(92vw, 1200px);
+    max-height: 86vh;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    touch-action: none;
+    user-select: none;
+  }
+
+  .ba-lightbox-track {
+    display: flex;
+    width: 300%;
+    flex-shrink: 0;
+    will-change: transform;
+  }
+
+  .ba-lightbox-slide {
+    flex: 0 0 33.3333%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ba-lightbox-slide img {
+    display: block;
+    max-width: 100%;
+    max-height: 86vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    background: transparent;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  .ba-lightbox-close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    z-index: 4;
+  }
+
+  .ba-lightbox-prev,
+  .ba-lightbox-next {
+    position: absolute;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-subtle);
+    color: var(--color-text-main);
+    width: 44px;
+    height: 44px;
+    border-radius: 9999px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    box-shadow: var(--shadow-soft);
+    opacity: 0.95;
+    transition: opacity 0.2s ease, background 0.2s ease;
+    z-index: 4;
+  }
+
+  .ba-lightbox-prev:hover,
+  .ba-lightbox-next:hover {
+    opacity: 1;
+    background: var(--color-surface);
+  }
+
+  .ba-lightbox-prev { left: -60px; top: 50%; transform: translateY(-50%); }
+  .ba-lightbox-next { right: -60px; top: 50%; transform: translateY(-50%); }
+
+  @media (max-width: 640px) {
+    .ba-lightbox { padding: 12px; }
+    .ba-lightbox-close { top: 12px; right: 12px; }
+    .ba-lightbox-prev { left: -48px; }
+    .ba-lightbox-next { right: -48px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ba-lightbox-close, .ba-lightbox-prev, .ba-lightbox-next { transition: none; }
+  }
+
+  body.lightbox-open .carousel-btn {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+</style>
+
+<script define:vars={{ images: JSON.stringify(images) }}>
+  (function() {
+    const viewport = document.querySelector('[data-carousel] .carousel-viewport');
+    const track = document.querySelector('[data-carousel] .carousel-track');
+    const prevBtn = document.querySelector('[data-carousel] [data-prev]');
+    const nextBtn = document.querySelector('[data-carousel] [data-next]');
+    const cards = Array.from(track.querySelectorAll('.case-card'));
+    const parsedImages = JSON.parse(images);
+    const total = parsedImages.length;
+
+    const smoothScrollBy = (delta) => {
+      const duration = 520;
+      const start = viewport.scrollLeft;
+      const end = start + delta;
+      const startTime = performance.now();
+      const tick = (now) => {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        viewport.scrollLeft = start + (end - start) * ease;
+        if (progress < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+
+    const step = () => {
+      const gap = parseFloat(getComputedStyle(track).gap || 18);
+      return cards[0].offsetWidth + gap;
+    };
+
+    const firstSetWidth = () => {
+      const gap = parseFloat(getComputedStyle(track).gap || 18);
+      return step() * total - gap;
+    };
+
+    let isDragging = false;
+    let dragThreshold = 6;
+    let dragStart = { x: 0, y: 0 };
+    let autoplayPause = null;
+    let isAutoplayScroll = false;
+    let isJumping = false;
+
+    const updateCenterCard = () => {
+      if (isJumping) return;
+      const cx = viewport.scrollLeft + viewport.clientWidth / 2;
+      let best = 0;
+      let minDist = Infinity;
+      cards.forEach((card, i) => {
+        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+        const dist = Math.abs(cx - cardCenter);
+        if (dist < minDist) {
+          minDist = dist;
+          best = i;
+        }
+      });
+      cards.forEach((card, i) => {
+        if (i % total === best % total) card.classList.add('is-center');
+        else card.classList.remove('is-center');
+      });
+    };
+
+    const wrapInfinite = () => {
+      if (isJumping) return;
+      const fw = firstSetWidth();
+      if (viewport.scrollLeft >= fw - 2) {
+        isJumping = true;
+        const prev = viewport.style.scrollBehavior;
+        viewport.style.scrollBehavior = 'auto';
+        viewport.scrollLeft -= fw;
+        requestAnimationFrame(() => {
+          viewport.style.scrollBehavior = prev;
+          updateCenterCard();
+          isJumping = false;
+        });
+      }
+    };
+
+    const onScroll = () => {
+      requestAnimationFrame(() => {
+        wrapInfinite();
+        updateCenterCard();
+      });
+    };
+
+    viewport.addEventListener('scroll', onScroll, { passive: true });
+
+    const recalcWhenReady = () => {
+      requestAnimationFrame(() => {
+        updateCenterCard();
+        setTimeout(updateCenterCard, 150);
+        setTimeout(updateCenterCard, 400);
+      });
+    };
+
+    if (document.readyState === 'complete') {
+      recalcWhenReady();
+    } else {
+      window.addEventListener('load', recalcWhenReady);
+    }
+
+    const scheduleNext = () => {
+      stopAutoplay();
+      autoplayPause = setTimeout(() => {
+        if (!isDragging && !isJumping) {
+          isAutoplayScroll = true;
+          smoothScrollBy(step());
+        }
+      }, 3000);
+    };
+
+    const stopAutoplay = () => {
+      if (autoplayPause) {
+        clearTimeout(autoplayPause);
+        autoplayPause = null;
+      }
+      isAutoplayScroll = false;
+    };
+
+    const startAutoplay = () => {
+      stopAutoplay();
+      scheduleNext();
+    };
+
+    viewport.addEventListener('scrollend', () => {
+      if (isAutoplayScroll) {
+        isAutoplayScroll = false;
+        if (!isDragging) scheduleNext();
+      }
+    });
+
+    viewport.addEventListener('pointerenter', () => { stopAutoplay(); });
+    viewport.addEventListener('pointerleave', () => { startAutoplay(); });
+    viewport.addEventListener('pointerdown', () => { isDragging = true; stopAutoplay(); });
+    window.addEventListener('pointerup', () => {
+      setTimeout(() => {
+        isDragging = false;
+        if (viewport.matches(':hover')) startAutoplay();
+      }, 800);
+    });
+
+    prevBtn.addEventListener('click', () => {
+      smoothScrollBy(-step());
+      stopAutoplay();
+      scheduleNext();
+    });
+
+    nextBtn.addEventListener('click', () => {
+      smoothScrollBy(step());
+      stopAutoplay();
+      scheduleNext();
+    });
+
+    // Lightbox
+    const lightbox = document.querySelector('[data-lightbox]');
+    const lightboxWrap = document.querySelector('.ba-lightbox-img-wrap');
+    const lightboxTrack = document.querySelector('.ba-lightbox-track');
+    const slidePrev = lightboxTrack.querySelector('.ba-lightbox-slide[data-role="prev"] img');
+    const slideCurrent = lightboxTrack.querySelector('.ba-lightbox-slide[data-role="current"] img');
+    const slideNext = lightboxTrack.querySelector('.ba-lightbox-slide[data-role="next"] img');
+    let currentLightboxIndex = -1;
+    let swipeJustHappened = false;
+    let isLightboxAnimating = false;
+    let lightboxSwipe = { active: false, moved: false, startX: 0, startY: 0 };
+
+    const setLightboxSlides = (index) => {
+      const prevIndex = (index - 1 + total) % total;
+      const nextIndex = (index + 1) % total;
+      slidePrev.src = parsedImages[prevIndex].src;
+      slidePrev.alt = parsedImages[prevIndex].title;
+      slideCurrent.src = parsedImages[index].src;
+      slideCurrent.alt = parsedImages[index].title;
+      slideNext.src = parsedImages[nextIndex].src;
+      slideNext.alt = parsedImages[nextIndex].title;
+    };
+
+    const getTrackTranslateX = () => {
+      const w = lightboxWrap.clientWidth;
+      const base = -w;
+      return base;
+    };
+
+    const setTrackPosition = (offsetFromCenter, animated) => {
+      if (animated) {
+        lightboxTrack.style.transition = 'transform 280ms ease';
+      } else {
+        lightboxTrack.style.transition = 'none';
+      }
+      const w = lightboxWrap.clientWidth;
+      const base = -w;
+      const x = base + offsetFromCenter * w;
+      lightboxTrack.style.transform = `translate3d(${x}px, 0, 0)`;
+    };
+
+    const centerTrack = () => setTrackPosition(0, false);
+
+    const openLightbox = (card) => {
+      const src = card.getAttribute('data-src');
+      const title = card.getAttribute('data-title') || '';
+      if (!src) return;
+      currentLightboxIndex = parseInt(card.getAttribute('data-index') || 0, 10);
+      setLightboxSlides(currentLightboxIndex);
+      lightbox.hidden = false;
+      document.body.style.overflow = 'hidden';
+      document.body.classList.add('lightbox-open');
+      centerTrack();
+    };
+
+    const closeLightbox = () => {
+      lightbox.hidden = true;
+      currentLightboxIndex = -1;
+      document.body.style.overflow = '';
+      document.body.classList.remove('lightbox-open');
+    };
+
+    const goToPrev = () => {
+      if (isLightboxAnimating || currentLightboxIndex < 0) return;
+      isLightboxAnimating = true;
+      setTrackPosition(1, true);
+      setTimeout(() => {
+        currentLightboxIndex = (currentLightboxIndex - 1 + total) % total;
+        setLightboxSlides(currentLightboxIndex);
+        centerTrack();
+        isLightboxAnimating = false;
+      }, 300);
+    };
+
+    const goToNext = () => {
+      if (isLightboxAnimating || currentLightboxIndex < 0) return;
+      isLightboxAnimating = true;
+      setTrackPosition(-1, true);
+      setTimeout(() => {
+        currentLightboxIndex = (currentLightboxIndex + 1 + total) % total;
+        setLightboxSlides(currentLightboxIndex);
+        centerTrack();
+        isLightboxAnimating = false;
+      }, 300);
+    };
+
+    // Click vs drag for cards
+    cards.forEach((card) => {
+      let startX, startY;
+      card.addEventListener('pointerdown', (e) => {
+        dragStart.x = e.clientX;
+        dragStart.y = e.clientY;
+        isDragging = true;
+        stopAutoplay();
+        card.setPointerCapture(e.pointerId);
+      });
+      card.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        const dx = e.clientX - dragStart.x;
+        if (Math.abs(dx) > dragThreshold) {
+          viewport.scrollBy({ left: -dx, behavior: 'auto' });
+          dragStart.x = e.clientX;
+        }
+      });
+      card.addEventListener('pointerup', (e) => {
+        const dx = Math.abs(e.clientX - dragStart.x);
+        const dy = Math.abs(e.clientY - dragStart.y);
+        if (dx < dragThreshold && dy < dragThreshold) {
+          openLightbox(card);
+        }
+        isDragging = false;
+        card.releasePointerCapture(e.pointerId);
+      });
+    });
+
+    document.querySelector('.ba-lightbox-close').addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (swipeJustHappened) {
+        swipeJustHappened = false;
+        return;
+      }
+      if (e.target === lightbox || e.target.closest('.ba-lightbox-img-wrap')) {
+        if (e.target.closest('.ba-lightbox-prev') || e.target.closest('.ba-lightbox-next')) return;
+        closeLightbox();
+      }
+    });
+    document.querySelector('.ba-lightbox-prev').addEventListener('click', (e) => {
+      e.stopPropagation();
+      goToPrev();
+    });
+    document.querySelector('.ba-lightbox-next').addEventListener('click', (e) => {
+      e.stopPropagation();
+      goToNext();
+    });
+
+    lightboxWrap.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('.ba-lightbox-prev') || e.target.closest('.ba-lightbox-next') || e.target.closest('.ba-lightbox-close')) return;
+      if (isLightboxAnimating) return;
+      lightboxSwipe.active = true;
+      lightboxSwipe.moved = false;
+      lightboxSwipe.startX = e.clientX;
+      lightboxSwipe.startY = e.clientY;
+      lightboxTrack.style.transition = 'none';
+      try { lightboxWrap.setPointerCapture(e.pointerId); } catch {}
+    });
+
+    lightboxWrap.addEventListener('pointermove', (e) => {
+      if (!lightboxSwipe.active) return;
+      const dx = e.clientX - lightboxSwipe.startX;
+      const dy = e.clientY - lightboxSwipe.startY;
+      if (Math.abs(dx) > 10 || Math.abs(dy) > 10) {
+        lightboxSwipe.moved = true;
+      }
+      const w = lightboxWrap.clientWidth;
+      const base = -w;
+      const newTranslate = base + dx;
+      lightboxTrack.style.transform = `translate3d(${newTranslate}px, 0, 0)`;
+    });
+
+    lightboxWrap.addEventListener('pointerup', (e) => {
+      if (!lightboxSwipe.active) return;
+      const dx = e.clientX - lightboxSwipe.startX;
+      const dy = e.clientY - lightboxSwipe.startY;
+      if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)) {
+        if (dx > 0) {
+          goToPrev();
+        } else {
+          goToNext();
+        }
+        swipeJustHappened = true;
+      } else {
+        centerTrack();
+      }
+      lightboxSwipe.active = false;
+      lightboxSwipe.moved = false;
+      if (lightboxWrap.hasPointerCapture(e.pointerId)) {
+        lightboxWrap.releasePointerCapture(e.pointerId);
+      }
+    });
+
+    lightboxWrap.addEventListener('pointercancel', () => {
+      if (!lightboxSwipe.active) return;
+      centerTrack();
+      lightboxSwipe.active = false;
+      lightboxSwipe.moved = false;
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (lightbox.hidden) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') goToPrev();
+      if (e.key === 'ArrowRight') goToNext();
+    });
+
+    updateCenterCard();
+    startAutoplay();
+  })();
+</script>

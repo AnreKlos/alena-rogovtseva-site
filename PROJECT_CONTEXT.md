@@ -1,7 +1,7 @@
 # Контекст проекта: Роговцева Лендинг V2
 
-> Обновлено: 29.06.2026
-> Статус: активная разработка v2, базовая версия запушена в GitHub
+> Обновлено: 01.07.2026
+> Статус: активная разработка v2, этап theme-архитектуры и UI/UX-полировки
 
 ---
 
@@ -35,26 +35,28 @@
 rogovtseva_v2_astro/
 ├── public/
 │   └── assets/
-│       └── img/
-│           └── services/          ← 14 фото услуг
+```
+rogovtseva_v2_astro/
 ├── src/
 │   ├── components/
 │   │   ├── Hero.astro           ← Первый экран: H1, подзаголовок, CTA, бейдж
+│   │   ├── Benefits.astro       ← Блок «Почему к нам возвращаются» (3 карточки)
 │   │   ├── Services.astro       ← Секция «Услуги»: табы + grid + единый modal
 │   │   ├── ServiceCard.astro    ← Карточка-превью одной услуги
-│   │   ├── Benefits.astro       ← Блок «Почему к нам возвращаются» (3 карточки)
 │   │   ├── About.astro          ← Секция «Обо мне» (статистика + CTA)
-│   │   ├── Gallery.astro        ← Секция «Работы» (6 плейсхолдеров)
+│   │   ├── Gallery.astro        ← Секция «Работы» (табы фильтрации, 26 фото, «Показать ещё»)
+│   │   ├── BeforeAfter.astro    ← Блок «До / После» (9 работ, сетка 2/1 колонки)
 │   │   ├── Reviews.astro        ← Секция «Отзывы» (5 карточек)
-│   │   └── Contact.astro        ← Секция «Запись»: форма + контакты
-│   ├── data/
+│   │   └── Contact.astro        ← Секция «Запись»: форма + контакты + Яндекс.Карта (JS API, Placemark)
+```
 │   │   └── services.ts           ← Данные 14 услуг
 │   ├── layouts/
 │   │   └── Layout.astro          ← Базовый каркас (html, head, slot)
 │   ├── pages/
-│   │   └── index.astro           ← Главная страница: Hero → Services → Benefits → About → Gallery → Reviews → Contact
+│   │   └── index.astro           ← Главная страница: Hero → Benefits → Services → About → Gallery → Reviews → Contact (внутри Contact: контакты + Яндекс.Карта)
 │   └── styles/
-│       └── global.css            ← Глобальные стили и сетки
+│       ├── global.css            ← Глобальные стили
+│       └── theme.css             ← Theme-токены (dark-elegance / clean-lux / soft-nude)
 ├── astro.config.mjs
 ├── package.json
 └── tsconfig.json
@@ -118,11 +120,13 @@ rogovtseva_v2_astro/
 | Главная страница | ✅ Работает | `src/pages/index.astro` |
 | Раздел «Hero» | ✅ Работает | `src/components/Hero.astro` |
 | Раздел «Услуги» | ✅ Работает | `src/components/Services.astro` |
-| Блок «Почему к нам возвращаются» | ✅ Готов к добавлению | `src/components/Benefits.astro` |
-| Секция «Обо мне» | ✅ Готов к добавлению | `src/components/About.astro` |
-| Раздел «Галерея» | ✅ Подключена (placeholder-контент) | `src/components/Gallery.astro` |
+| Блок «Почему к нам возвращаются» | ✅ Работает | `src/components/Benefits.astro` |
+| Секция «Обо мне» | ✅ Работает | `src/components/About.astro` |
+| Раздел «Галерея» | ✅ Работает (табы + фильтрация, 26 фото, «Показать ещё») | `src/components/Gallery.astro` |
+| Блок «До / После» | ✅ Добавлен (horizontal snap carousel, 9 работ, image-driven карточки, compact premium wall, center accent, autoplay step-based, lightbox без подписей) | `src/components/BeforeAfter.astro` |
+| **Правки BeforeAfter от 01.07.2026** | В процессе: infinite-loop карусель; карточки-квадраты; средняя карточка должна быть крупнее боковых; стрелки карусели должны стоять рядом с каруселью, а не по краям экрана; в lightbox кнопки prev/next/close должны быть рядом с фотографией, а не по углам экрана; в lightbox должна работать drag-навигация по фото (зажал мышкой и тянешь влево/вправо — переключаются карточки) | |
 | Раздел «Отзывы» | ✅ Работает | `src/components/Reviews.astro` |
-| Раздел «Запись» | ✅ Работает (форма + контакты) | `src/components/Contact.astro` |
+| Раздел «Запись» | ✅ Работает (форма + контакты + Яндекс.Карта через JS API, координаты 53.215127, 34.421717, без всплывающей плашки) | `src/components/Contact.astro` |
 
 ---
 
@@ -205,6 +209,50 @@ rogovtseva_v2_astro/
 
 ---
 
+## Блок «До / После»
+- Создан компонент `src/components/BeforeAfter.astro`
+- Подключён сразу после `Gallery`
+- Данные: реальные фото из `public/assets/img/gallery/before-after/`
+- Отображает 7 работ (ресницы, макияж, уход за кожей)
+- Концепция: horizontal snap carousel + image-driven карточки + center accent + autoplay step-based + lightbox без подписей
+- Lightbox: prev/next/close, keyboard nav, без drag/swipe внутри лайтбокса
+- Карточки: `height: auto`, `object-fit: contain`, без фиксированного aspect-ratio
+- Infinite loop реализован через wrap-jump (Autoplay + стрелки)
+- Стрелки карусели позиционированы внутри `.carousel`
+
+---
+
+## Структура страницы (актуальная)
+## Структура страницы (актуальная)
+
+Hero → Benefits → Services → About → Gallery → BeforeAfter → Reviews → Contact
+
+---
+
+## Theme-архитектура
+
+- Source of truth: `src/styles/theme.css`
+- Переключение через `data-theme` на `<html>`
+- Активные палитры: `dark-elegance`, `clean-lux`, `soft-nude`
+- В проекте используются theme tokens: `--color-bg`, `--color-surface`, `--color-surface-2`, `--color-text-main`, `--color-text-muted`, `--color-accent`, `--color-accent-hover`, `--color-border-subtle`, `--shadow-soft`, `--shadow-strong`, overlay-токены
+- Применено в: Hero, Services, ServiceCard, About, Gallery, BeforeAfter, Reviews, Contact, Footer и связанных overlay/lightbox
+- Raw hex/rgba для theme-ролей заменены на `var(...)`; исключения только для нетематических значений
+- При дальнейших изменениях запрещено возвращать raw hex/rgba для theme-ролей в компоненты
+
+---
+
+## Текущий этап
+
+- Сборка завершена
+- Theme-архитектура внедрена и считается базовой
+- Контактная карта исправлена
+- Блок «До / После» переведён на horizontal snap carousel с image-driven карточками
+- Текущие доработки BeforeAfter: infinite loop, крупная средняя карточка, стрелки у карусели, lightbox с кнопками у фото и drag-swipe внутри лайтбокса
+- Использовать CodeGraph как primary tool для навигации/аудита кодовой базы, а не как ad-hoc чтение файлов
+- Проект находится в этапе UI/UX-полировки и дизайна
+
+---
+
 ## Запуск и сборка
 
 ```bash
@@ -218,11 +266,11 @@ npm run build               # сборка проекта
 - главная страница открывается
 - Hero: H1 «Студия красоты Алёны Роговцевой» + подзаголовок «Наращивание ресниц, маникюр и педикюр в Фокинском районе» + описание + кнопка «Записаться» + trust-плашка (5.0 / 270+ отзывов / «Хорошее место 2026») (якорь #contact)
 - Services: по умолчанию активен таб «Ресницы» (6 карточек), табы переключают категории, клик по карточке открывает подробности услуги в modal-окне
-- Дополнительные текстовые подписи над карточками: заполнены для «Ресницы» и «Ногтевой сервис»; для «Брови», «Макияж» и «Обучение» — ещё не внесены
+- Дополнительные текстовые подписи над карточками: заполнены для «Ресницы», «Ногтевого сервиса», «Бровей», «Макияжа» и «Обучения»
 - Тексты для сайта создаются владельцем проекта и ассистентом вручную; Hermes не сочиняет тексты сам, а только вносит утверждённые формулировки
 - Benefits: блок «Почему к нам возвращаются» (3 карточки: Комфортно, Безопасно и аккуратно, По времени — как договорились)
 - About: секция «Обо мне» (статистика + CTA)
-- Gallery: заголовок «Работы», 6 плейсхолдеров в сетке 3×2 (готово к замене на реальные фото)
+- Gallery: заголовок «Мои работы», табы фильтрации (Все, Ресницы, Брови, Маникюр, Педикюр), 26 фото, кнопка «Показать ещё»
 - Reviews: 5 карточек реальных отзывов
-- Contact: форма (имя, телефон, услуга, комментарий) + контакты (Брянск, Московский пр., 49А, +7 (961) 104-31-19, ежедневно до 21:00)
+- Contact: форма + контакты + Яндекс.Карта через JS API (ymaps.Map + Placemark), координаты 53.215127, 34.421717, без всплывающей плашки.
 - `npm run build` завершается успешно

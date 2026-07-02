@@ -1,0 +1,107 @@
+---
+---
+<section class="benefits-section">
+  <div class="container">
+    <h2 class="benefits-title">Почему к нам возвращаются</h2>
+    <div class="benefits-list">
+      <div class="benefit-item">
+        <div class="benefit-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9h-2v3a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2v-3H9v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3H3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2z"/></svg>
+        </div>
+        <h3 class="benefit-item-title">Комфортно</h3>
+        <p class="benefit-item-text">Анатомическое кресло-реклайнер. Во время процедуры можно спокойно расслабиться и отдохнуть.</p>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3 class="benefit-item-title">Безопасно и аккуратно</h3>
+        <p class="benefit-item-text">Работаю тонкими волокнами и проверенными материалами, чтобы не было дискомфорта после процедуры.</p>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h3 class="benefit-item-title">По времени — как договорились</h3>
+        <p class="benefit-item-text">Принимаю по записи, без накладок. Вы заранее понимаете, сколько займёт процедура.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .benefits-section {
+    padding: 60px 20px;
+    background: var(--color-surface);
+  }
+  .benefits-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--color-text-main);
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .benefits-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    max-width: 720px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .benefit-item {
+    padding: 22px 20px;
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 4px;
+  }
+  .benefit-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 12px;
+    color: var(--color-text-main);
+  }
+  .benefit-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+  .benefit-item-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-text-main);
+    margin: 0 0 10px;
+  }
+
+  .benefit-item-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+  @media (min-width: 768px) {
+    .benefits-section {
+      padding: 80px 24px;
+    }
+    .benefits-title {
+      font-size: 2rem;
+    }
+    .benefits-list {
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 1100px;
+    }
+    .benefit-item {
+      padding: 26px 28px;
+    }
+    .benefit-item-title {
+      font-size: 1.2rem;
+    }
+    .benefit-item-text {
+      font-size: 1rem;
+    }
+  }
+</style>
